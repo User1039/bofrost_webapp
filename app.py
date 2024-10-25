@@ -40,6 +40,8 @@ bp = Blueprint("routes", __name__, static_folder="static", template_folder="stat
 
 cosmos_db_ready = asyncio.Event()
 
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_app():
     app = Quart(__name__)
@@ -404,13 +406,29 @@ async def conversation_internal(request_body, request_headers):
             return jsonify({"error": str(ex)}), 500
 
 
+
+from custom_conversation import handle_custom_conversation
+
 @bp.route("/conversation", methods=["POST"])
 async def conversation():
     if not request.is_json:
         return jsonify({"error": "request must be json"}), 415
     request_json = await request.get_json()
 
-    return await conversation_internal(request_json, request.headers)
+    filtered_messages = []
+    messages = request_json.get("messages", [])
+    for message in messages:
+        if message.get("role") != 'tool':
+            filtered_messages.append(message)
+            
+    
+    response = await handle_custom_conversation(filtered_messages)
+    
+    return format_non_streaming_response(**response)
+
+
+
+
 
 
 @bp.route("/frontend_settings", methods=["GET"])
