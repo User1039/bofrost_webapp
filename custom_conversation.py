@@ -68,21 +68,25 @@ Falls ein Feld nicht benötigt wird, muss es leer gelassen werden, anstatt es zu
 Für das Eigenschaften Feld, gib bitte hier nur Werte an, wenn der Nutzer aktiv bestimmte Komponenten ausschliessen möchte. \
 Einen Speziallfall bildet das Zutaten Feld. Hier gibt es keine vorgegebenen Werte. Stattdessen, nutze die Zutaten die der Nutzer explizit erwähnt. \
 
-Ignoriere Rechtschreibfehler des Nutzers, solange du dir sehr sicher bist dass du die Intention des Nutzers verstehst.\
+Ignoriere Rechtschreibfehler des Nutzers, solange du dir sehr sicher bist dass du die Intention des Nutzers verstehst. \
+Falls der Nutzer eine Zutatenkategorie nennt, gebe 3 zur restlichen Anfrage passenden Zutaten an. Zum Beispiel, falls der \
+Nutzer Gemüse sagt, könntest du Zwiebeln, Karotten und Sellerie angeben. Bei Fleisch zum Beispiel Würtschen, Hähnchen und Steak.\
 """
 
 generation_system_prompt_template = """\
 Du bist ein hilfreicher Assistent, welcher eine Konversation mit dem Nutzer führt. \
 Der Nutzer ist auf der Suche nach Rezepten. \
-Wir haben bereits die zu seiner Anfrage passenden Rezepte gefunden. Du sollst diese nun in eine Antwort an den Nutzer verpacken. \
+Wir haben bereits die zu seiner Anfrage (teilweise) passenden Rezepte aus unserer Rezeptdatenbank (132 Einträge) rausgesucht. \
+Du sollst diese nun in eine Antwort an den Nutzer verpacken. \
 Bleibe dabei jedoch prägnant. Anstatt die Quellen direkt zu nennen, erwähne sie durch ein [docx] im Text, wobei das x durch den Rezept Index ersetzt werden soll.\
-Es sollte insbesondere keine stumpfe Auflistung der Zutaten oder Schlüsselwörter sein.
+Es sollte insbesondere keine stumpfe Auflistung der Zutaten oder Schlüsselwörter sein. \
+Nutze dickgedruckte Rezept-Titel um die Rezepte zu präsentieren. \
 
 Gefundene Rezepte:
 {sample_recipes}
 
 Wichitig: Anstatt die Quellen direkt zu nennen, erwähne sie durch ein [docx] im Text, wobei das x durch den Rezept Index ersetzt werden soll. \
-Falls keine Rezepte gefunden wurden, gib bitte eine entsprechende Nachricht zurück.\
+Falls keine Rezepte gefunden wurden, gib bitte eine entsprechende Nachricht zurück und denke dir niemals eins aus.\
 """
 
 import json
@@ -90,33 +94,37 @@ class RecipeDataset:
     def __init__(self, data : list[dict]):
         self.data = data
 
-    def _ingredient_match (self, ingredient_list, search_terms):
+    def _ingredient_match (self, ingredient_list, search_terms) -> int:
         # Search term is a list of strings
         # Ingredient list is a list of strings
         # Returns True if all search terms are in the ingredient list
         # need only partial matches. E.g. "Tomato" should match "Tomato Sauce"
-
+        search_terms_found = 0
+        found_terms = []
         for term in search_terms:
-            found = False
             for ingredient in ingredient_list:
                 if term.lower() in ingredient.lower():
-                    found = True
+                    search_terms_found += 1
+                    found_terms.append(term)
                     break
-            if not found:
-                return False
-        return True
+        return search_terms_found
+    
+
 
     def search_recipes(self, zutaten=None, schluesselwoerter=None, schwierigkeit=None, eigenschaften=None):
         results = self.data
-
-        if zutaten:
-            results = [r for r in results if self._ingredient_match(r["Zutaten"],zutaten)]
         if schluesselwoerter:
-            results = [r for r in results if all(k in r['Schlüsselwörter'] for k in schluesselwoerter)]
+            results = [r for r in results if all(k in (r['Schlüsselwörter'] or [])for k in schluesselwoerter)]
         if schwierigkeit:
             results = [r for r in results if r['Schwierigkeit'] == schwierigkeit]
         if eigenschaften:
-            results = [r for r in results if all(e in r['Eigenschaften'] for e in eigenschaften)]
+            results = [r for r in results if all(e in (r['Eigenschaften'] or []) for e in eigenschaften)]
+
+        if zutaten:
+            for recipe in results:
+                recipe["n_found_ingredients"] = self._ingredient_match(recipe["Zutaten"],zutaten)
+            results = [recipe for recipe in results if recipe["n_found_ingredients"]]
+            results = sorted(results, key=lambda x: x["n_found_ingredients"], reverse=True)
 
         return results
 
@@ -188,7 +196,8 @@ async def handle_custom_conversation(messages : list[dict]):
     pprint(filters_converted)
     results = dataset.search_recipes(**filters_converted)
 
-    sampled_results = random.sample(results, min(3, len(results)))
+    sampled_results = results[:3]
+    # sampled_results = random.sample(results, min(3, len(results)))
     for index, recipe in enumerate(sampled_results):
         recipe['Index'] = index+1
     # 
@@ -201,12 +210,12 @@ async def handle_custom_conversation(messages : list[dict]):
     #     ] + messages)
 
     sample_recipes_filtered = [
-        {k:v for k,v in recipe.items() if k in ['Name','Zutaten','Rezeptkategorie',"Schlüsselwörter"]} for recipe in sampled_results
+        {k:v for k,v in recipe.items() if k in ['Index','Name','Zutaten','Rezeptkategorie',"Schlüsselwörter"]} for recipe in sampled_results
     ]
     completion =  await client.chat.completions.create(
         model=os.getenv("AZURE_OPENAI_MODEL"),
         messages=[
-            {"role": "system", "content": generation_system_prompt_template.format(sample_recipes = json.dumps(sampled_results))},
+            {"role": "system", "content": generation_system_prompt_template.format(sample_recipes = json.dumps(sample_recipes_filtered))},
         ] + messages,
         temperature=0.0,
     )
