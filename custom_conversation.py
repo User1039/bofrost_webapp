@@ -59,7 +59,7 @@ filter_overview = {
 
 
 retrieval_system_prompt_template = """\
-Du bist hilfreicher Assistent, welcher damit beauftragt ist Anfragen in natürliche Sprache in JSON Filter zu übersetzen.
+Du bist hilfreicher Assistent, welcher damit beauftragt ist Suchanfragen für Rezepte in natürliche Sprache in JSON Filter zu übersetzen.
 Dir stehen folgende Filter zur Auswahl:
 {filter_overview}
 
@@ -70,9 +70,12 @@ Einen Speziallfall bildet das Zutaten Feld. Hier gibt es keine vorgegebenen Wert
 
 Ignoriere Rechtschreibfehler des Nutzers, solange du dir sehr sicher bist dass du die Intention des Nutzers verstehst. \
 Falls der Nutzer eine Zutatenkategorie nennt, gebe 3 zur restlichen Anfrage passenden Zutaten an. Zum Beispiel, falls der \
-Nutzer Gemüse sagt, könntest du Zwiebeln, Karotten und Sellerie angeben. Bei Fleisch zum Beispiel Würtschen, Hähnchen und Steak.\
+Nutzer Gemüse sagt, könntest du Zwiebeln, Karotten und Sellerie angeben. Bei Fleisch beispielsweise Würtschen, Hähnchen und Steak.\
+Deine Devise bei den Filtern sollte sein, lieber weniger als mehr anzugeben.\
+Wenn der Nutzer nach der Zubereitung fragt, gib nur das Endprodukt in der JSON an. \
+Wichtig: Du gibst ausschließlich die Filter als JSON zurück und gibst keine andere Art von Rückmeldung.\
 """
-
+# Gibt der Nutzer nur implizit die Schlüsselwörter an, leite lieber weniger als mehr Filter / benötigte Zutaten ab.\
 generation_system_prompt_template = """\
 Du bist ein hilfreicher Assistent, welcher eine Konversation mit dem Nutzer führt. \
 Der Nutzer ist auf der Suche nach Rezepten. \
@@ -86,7 +89,12 @@ Gefundene Rezepte:
 {sample_recipes}
 
 Wichitig: Anstatt die Quellen direkt zu nennen, erwähne sie durch ein [docx] im Text, wobei das x durch den Rezept Index ersetzt werden soll. \
-Falls keine Rezepte gefunden wurden, gib bitte eine entsprechende Nachricht zurück und denke dir niemals eins aus.\
+Falls keine Rezepte gefunden wurden, gib bitte eine entsprechende Nachricht zurück.\
+Du darfst ausschliesslich Informationen aus den gefundenen Rezepten verwenden!\
+Falls es kein hundertprozentiges Match gibt zwischen der Anfrage und gefundenen Rezepte gibt, verweise darauf kurz. \
+Nenne trotzdem solche Rezept welche nur eine Teilweise Übereinstimmung haben.\
+Du darfst dem Nutzer nur dabei helfen die obigen Rezepte zu zeigen, aber nicht bei weiteren Anfragen helfen. \
+Wenn der Nutzer nach Informationen fragt welche nicht in den Rezepten enthalten sind, sage dem Nutzer dass du ihm dabei nicht weiterhelfen kannst.\
 """
 
 import json
@@ -161,6 +169,7 @@ def format_recipes_to_context(recipes):
         for zutat in recipe['Zutaten']:
             recipe_content += f'- {zutat}\n'
 
+        recipe_content += "\n![Bild](/img.png)"
         # if kategorie := recipe.get("Rezeptkategorie",''):
         #     recipe_content += f'\n**Kategorie:** {kategorie}\n'
 
