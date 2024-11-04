@@ -90,6 +90,7 @@ Gefundene Rezepte:
 
 Wichitig: Anstatt die Quellen direkt zu nennen, erwähne sie durch ein [docx] im Text, wobei das x durch den Rezept Index ersetzt werden soll. \
 Falls keine Rezepte gefunden wurden, gib bitte eine entsprechende Nachricht zurück.\
+Präsentiere dem Nutzer maximal drei der gefundenen Rezepte. \
 Du darfst ausschliesslich Informationen aus den gefundenen Rezepten verwenden!\
 Falls es kein hundertprozentiges Match gibt zwischen der Anfrage und gefundenen Rezepte gibt, verweise darauf kurz. \
 Nenne trotzdem solche Rezept welche nur eine Teilweise Übereinstimmung haben.\
@@ -205,7 +206,8 @@ async def handle_custom_conversation(messages : list[dict]):
     pprint(filters_converted)
     results = dataset.search_recipes(**filters_converted)
 
-    sampled_results = results[:3]
+    max_number_of_results = 10 if len(results) > 10 else len(results)
+    sampled_results = results[:max_number_of_results]
     # sampled_results = random.sample(results, min(3, len(results)))
     for index, recipe in enumerate(sampled_results):
         recipe['Index'] = index+1
