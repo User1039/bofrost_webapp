@@ -420,8 +420,12 @@ async def conversation():
     for message in messages:
         if message.get("role") != 'tool':
             filtered_messages.append(message)
-            
     
+    print("*"*10 + " INCOMING HEADER " + "*"*10)
+    print(request.headers)
+    logging.warning("*"*10 + " INCOMING HEADER " + "*"*10)
+    logging.warning(request.headers)
+
     response = await handle_custom_conversation(filtered_messages)
     
     return format_non_streaming_response(**response)
