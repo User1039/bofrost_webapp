@@ -262,6 +262,9 @@ async def handle_custom_conversation_gherkin(messages : list[dict]):
         # api_version=os.getenv("AZURE_OPENAI_API_VERSION")
     )
     # print(os.getenv("AZURE_OPENAI_MODEL"))
+    print([
+            {"role": "system", "content": SYSTEM_PROMPT_GHERKIN},
+        ] + messages)
     completion = await client.chat.completions.create(
         model=os.getenv("AZURE_OPENAI_MODEL"),
         messages=[
@@ -269,6 +272,7 @@ async def handle_custom_conversation_gherkin(messages : list[dict]):
         ] + messages,
         temperature=0.0,
     )
+
     return {
         "chatCompletion" : completion,
         "history_metadata" : {},
