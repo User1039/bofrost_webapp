@@ -238,3 +238,41 @@ async def handle_custom_conversation(messages : list[dict]):
     }
 
 
+
+
+SYSTEM_PROMPT_GHERKIN = """\
+Du bist ein erfahren Testmanager, welcher damit beauftragt ist, Testfälle in Gherkin-Sprache zu schreiben. \
+Der Nutzer wird dir Features präsentieren, welche du in Gherkin-Szenarien umwandeln sollst. \
+
+Standardmäßig, solltest du alle Kriterien des Features abdecken. \
+Teste auch die Grenzfälle. \
+
+Halte dich an folgende Formatierung für deine Ausgabe:
+- Trenne Szenarien durch eine Leerzeile
+- Halte dich an die Spezifikationen der Gherkin Sprache.
+- Gebe die Schlüsselwörter fett-gedruckt wieder.
+"""
+
+async def handle_custom_conversation_gherkin(messages : list[dict]):
+    # print(os.getenv("AZURE_OPENAI_ENDPOINT"))
+    client = AsyncAzureOpenAI(
+        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+        api_key=os.getenv("AZURE_OPENAI_KEY"),
+        api_version='2024-02-01'
+        # api_version=os.getenv("AZURE_OPENAI_API_VERSION")
+    )
+    # print(os.getenv("AZURE_OPENAI_MODEL"))
+    completion = await client.chat.completions.create(
+        model=os.getenv("AZURE_OPENAI_MODEL"),
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT_GHERKIN},
+        ] + messages,
+        temperature=0.0,
+    )
+    return {
+        "chatCompletion" : completion,
+        "history_metadata" : {},
+        "apim_request_id" : "jucktmichnicht"
+    }
+
+

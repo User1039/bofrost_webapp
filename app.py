@@ -407,7 +407,7 @@ async def conversation_internal(request_body, request_headers):
 
 
 
-from custom_conversation import handle_custom_conversation
+from custom_conversation import handle_custom_conversation_gherkin
 
 @bp.route("/conversation", methods=["POST"])
 async def conversation():
@@ -426,7 +426,7 @@ async def conversation():
     logging.warning("*"*10 + " INCOMING HEADER " + "*"*10)
     logging.warning(request.headers)
 
-    response = await handle_custom_conversation(filtered_messages)
+    response = await handle_custom_conversation_gherkin(filtered_messages)
     
     return format_non_streaming_response(**response)
 
