@@ -418,13 +418,8 @@ async def conversation():
     filtered_messages = []
     messages = request_json.get("messages", [])
     for message in messages:
-        if message.get("role") != 'tool':
+        if message.get("role") in ['user', 'assistant']:
             filtered_messages.append(message)
-    
-    print("*"*10 + " INCOMING HEADER " + "*"*10)
-    print(request.headers)
-    logging.warning("*"*10 + " INCOMING HEADER " + "*"*10)
-    logging.warning(request.headers)
 
     response = await handle_custom_conversation_gherkin(filtered_messages)
     
