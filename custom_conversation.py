@@ -250,6 +250,7 @@ Teste auch die Grenzfälle. \
 Halte dich an folgende Formatierung für deine Ausgabe:
 - Trenne Szenarien durch eine Leerzeile
 - Halte dich an die Spezifikationen der Gherkin Sprache.
+- Nutze die englischen Schlüsselwörter (Given, When, Then, And, But), schreibe aber die restliche Antwort auf Deutsch.
 - Gebe die Schlüsselwörter fett-gedruckt wieder.
 """
 
