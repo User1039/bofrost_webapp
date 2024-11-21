@@ -1,0 +1,413 @@
+
+[
+  {
+    "name": "AUTH_CLIENT_SECRET",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AUTH_ENABLED",
+    "value": "true",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_ACCOUNT",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_CONVERSATIONS_CONTAINER",
+    "value": "conversations",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_DATABASE",
+    "value": "db_conversation_history",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_CONNECTION_STRING",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_CONTAINER",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_CONTENT_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_DATABASE",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_FILENAME_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_INDEX",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_TITLE_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_URL_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_COSMOSDB_MONGO_VCORE_VECTOR_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_EMBEDDING_ENDPOINT",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_EMBEDDING_KEY",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_EMBEDDING_NAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_ENDPOINT",
+    "value": "https://gptswitzerland.openai.azure.com/",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_KEY",
+    "value": "850979c3a1864238a1a3b2c9468fe647",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_MAX_TOKENS",
+    "value": "800",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_MODEL",
+    "value": "128gpt4o",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_MODEL_NAME",
+    "value": "gpt-4o",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_RESOURCE",
+    "value": "gptswitzerland",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_STOP_SEQUENCE",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_SYSTEM_MESSAGE",
+    "value": "Always answer in french.",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_TEMPERATURE",
+    "value": "0.0",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_TOP_P",
+    "value": "0.95",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_CONTENT_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_ENABLE_IN_DOMAIN",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_FILENAME_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_INDEX",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_KEY",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_PERMITTED_GROUPS_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_QUERY_TYPE",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_SEMANTIC_SEARCH_CONFIG",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_SERVICE",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_STRICTNESS",
+    "value": "3",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_TITLE_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_TOP_K",
+    "value": "5",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_URL_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_USE_SEMANTIC_SEARCH",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_SEARCH_VECTOR_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "DATASOURCE_TYPE",
+    "value": "AzureCognitiveSearch",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_CONTENT_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_EMBEDDING_MODEL_ID",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_ENABLE_IN_DOMAIN",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_ENCODED_API_KEY",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_ENDPOINT",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_FILENAME_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_INDEX",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_QUERY_TYPE",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_STRICTNESS",
+    "value": "3",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_TITLE_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_TOP_K",
+    "value": "5",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_URL_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "ELASTICSEARCH_VECTOR_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "GOOGLE_PROVIDER_AUTHENTICATION_SECRET",
+    "value": "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",
+    "slotSetting": true
+  },
+  {
+    "name": "MONGODB_APP_NAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_COLLECTION_NAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_CONTENT_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_DATABASE_NAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_ENABLE_IN_DOMAIN",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_ENDPOINT",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_FILENAME_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_INDEX_NAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_PASSWORD",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_STRICTNESS",
+    "value": "3",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_TITLE_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_TOP_K",
+    "value": "5",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_URL_COLUMN",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_USERNAME",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "MONGODB_VECTOR_COLUMNS",
+    "value": "",
+    "slotSetting": false
+  },
+  {
+    "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
+    "value": "true",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_CHAT_DESCRIPTION",
+    "value": "Ich helfe dir gerne bei der Suche nach einem passenden Rezept.",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_CHAT_LOGO",
+    "value": "https://sm-img.imgix.net/cms/Microsoft_Teams_image_88_c9028e168a.png",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_CHAT_TITLE",
+    "value": "Worauf hast du heute Lust?",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_FAVICON",
+    "value": "https://sm-img.imgix.net/cms/Microsoft_Teams_image_88_c9028e168a.png",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_LOGO",
+    "value": "https://sm-img.imgix.net/cms/Microsoft_Teams_image_88_c9028e168a.png",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_SHOW_CHAT_HISTORY_BUTTON",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_SHOW_SHARE_BUTTON",
+    "value": "false",
+    "slotSetting": false
+  },
+  {
+    "name": "UI_TITLE",
+    "value": "Bofrost Rezept Finder",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_AUTH_AAD_ALLOWED_TENANTS",
+    "value": "d890b33f-b27a-429b-ab92-717eb9f77a5d",
+    "slotSetting": false
+  }
+]
