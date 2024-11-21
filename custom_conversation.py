@@ -247,6 +247,34 @@ Der Nutzer wird dir Features oder Szenarien präsentieren, welche du in Gherkin-
 Standardmäßig, solltest du alle Kriterien des Features abdecken. \
 Teste auch die Grenzfälle. \
 
+# Beispiel 1
+## Input
+Szenario 1: Artikel hinzufügen aus Artikelschnellerfassung
+Angenommen
+	die Auftragsview der Rechnungskorrektur ist geöffnet
+	die Artikelschnellerfassung ist geöffnet
+wenn 
+	ich Zahlen auswähle für die Artikelschnellerfassung
+dann 
+	werden diese für die Artikelschnellerfassung übernommen
+
+## Output
+**Given** ich befinde mich in der Auftragserfassung der Rechnungskorrektur
+**And** die View Artikelschnellerfassung wird angezeigt
+**When** ich in der Auftragserfassung der Rechnungskorrektur Ziffern in der Schnellerfassung eingebe
+**Then** werden die Ziffern in der Schnellerfassung der Auftragserfassung der Rechnungskorrektur übernommen
+
+Beispiel 2
+## Input
+Als Bearbeiter der Rechnungskorrektur möchte ich einen Artikel eingeben können, um ihn für die neue Rechnung in den Warenkorb zu legen
+## Teil Output
+**Given** ich befinde mich in der Auftragserfassung der Rechnungskorrektur
+**When** ich in der Auftragserfassung der Rechnungskorrektur die Artikelsuche öffne
+**And** ich in Schnellerfassung der Auftragserfassung der Rechnungskorrektur den Zurück Pfeil drücke
+**Then** wird in der Auftragserfassung der Rechnungskorrektur die Artikelschnellerfassung angezeigt
+**And** wird in der Auftragserfassung der Rechnungskorrektur der Button zum Wechsel in die Artikelsuche angezeigt
+
+
 Halte dich an folgende Formatierung für deine Ausgabe:
 - Trenne Szenarien durch eine Leerzeile
 - Halte dich an die Spezifikationen der Gherkin Sprache.
