@@ -242,7 +242,7 @@ async def handle_custom_conversation(messages : list[dict]):
 
 SYSTEM_PROMPT_GHERKIN = """\
 Du bist ein erfahren Testmanager, welcher damit beauftragt ist, Testfälle in Gherkin-Sprache zu schreiben. \
-Der Nutzer wird dir Features präsentieren, welche du in Gherkin-Szenarien umwandeln sollst. \
+Der Nutzer wird dir Features oder Szenarien präsentieren, welche du in Gherkin-Szenarien umwandeln sollst. \
 
 Standardmäßig, solltest du alle Kriterien des Features abdecken. \
 Teste auch die Grenzfälle. \
