@@ -239,47 +239,69 @@ async def handle_custom_conversation(messages : list[dict]):
 
 
 
+# Beispiel 2
+# ## Input
+# Als Admin benötige ich die Möglichkeit die Funktion "Hinweis Tagesabschluss" für ein bestimmtes Land zu aktivieren.
 
+# ## Output
+# **Given** man befindet sich im Supportportal
+# **Wnen** man in die Ländereinstellungen in der Kachel "Allgemein" geht
+# **Then** gibt es einen Schalter "Hinweis Tagesabschluss" (per Default auf deaktiviert)
+# **And** die Schalterstellung wird an die App übergeben
+# Standardmäßig, solltest du alle Kriterien des Features abdecken. \
+# Teste auch die Grenzfälle. \
+
+# # Beispiel 
+# ## Input
+# Szenario 2: Passwort anzeigen in Log-In View
+# Angenommen
+# man befindet sich im Log-In Dialog
+# man hat ein Passwort eingegeben
+# das Passwort wird verschlüsselt angezeigt (deaktives Symbol)
+# wenn man das Symbol zur Anzeige des Passwortes auswählt (z.B. von Auge zu durchgestrichenes Auge)
+# dann wird das eingegebene Passwort angezeigt
+
+# ## Output
+# Szenario 2: Passwort anzeigen in Log-In View\\n
+# **Given** man befindet sich im Log-In Dialog\\n
+# **And** man hat ein Passwort eingegeben\\n
+# **And** das Passwort wird verschlüsselt angezeigt (deaktives Symbol)\\n
+# **When** man das Symbol zur Anzeige des Passwortes auswählt (z.B. von Auge zu durchgestrichenes Auge)\\n
+# **Then** wird das eingegebene Passwort angezeigt\\n
+# oder die Tiefe von bedingungen größer als 2  bitte 
+# Falls es im Szenario Verzweigungen gibt, schreibe für jede Verzweigung
+# eigenständig
+# vollständig
+# alleinstehend
+
+# Falls es verschachtelte Vorraussetzungen gibt, \
+# teile das Szenario in mehrere vollständig Szenarien auf. \
+# Jedes neu erstellte Szenario sollte die essentiellen Vorraussetzungen des übergeordneten Szenario enthalten. \
+# Kennzeiche Szenarien als `## Szenario <index>: <Titel>`
+# - Gebe die Schlüsselwörter fett-gedruckt wieder.
 SYSTEM_PROMPT_GHERKIN = """\
-Du bist ein erfahren Testmanager, welcher damit beauftragt ist, Testfälle in Gherkin-Sprache zu schreiben. \
-Der Nutzer wird dir Features oder Szenarien präsentieren, welche du in Gherkin-Szenarien umwandeln sollst. \
+Du bist ein erfahren Testmanager, welcher damit beauftragt ist, vom Nutzer zur Verfügung gestellte, \
+bereits vorhandene Szenarien in Testfälle in Gherkin-Syntax zu überführen und zu verbessern. Das beinhaltet folgendes.
+- Die Testfälle sollen in valider Gherkin-Syntax formuliert sein.
+- Die Eingaben des Nutzers können schlecht oder umständig formuliert sein. Falls sinnvoll, verbessere die Formulierung ohne die Intention des Nutzers zu verändern.
+- Die Eingaben des Nutzers können verschachtelt sein. Falls sinnvoll, teile das Szenario in mehrere vollständige Testfälle auf. \
+Jeder dieser Testfälle sollte für sich alleine stehen können, und damit auch die nötigen Abhängigkeiten enthalten.
 
-Standardmäßig, solltest du alle Kriterien des Features abdecken. \
-Teste auch die Grenzfälle. \
-
-# Beispiel 1
-## Input
-Szenario 1: Artikel hinzufügen aus Artikelschnellerfassung
-Angenommen
-	die Auftragsview der Rechnungskorrektur ist geöffnet
-	die Artikelschnellerfassung ist geöffnet
-wenn 
-	ich Zahlen auswähle für die Artikelschnellerfassung
-dann 
-	werden diese für die Artikelschnellerfassung übernommen
-
-## Output
-**Given** ich befinde mich in der Auftragserfassung der Rechnungskorrektur
-**And** die View Artikelschnellerfassung wird angezeigt
-**When** ich in der Auftragserfassung der Rechnungskorrektur Ziffern in der Schnellerfassung eingebe
-**Then** werden die Ziffern in der Schnellerfassung der Auftragserfassung der Rechnungskorrektur übernommen
-
-Beispiel 2
-## Input
-Als Bearbeiter der Rechnungskorrektur möchte ich einen Artikel eingeben können, um ihn für die neue Rechnung in den Warenkorb zu legen
-## Teil Output
-**Given** ich befinde mich in der Auftragserfassung der Rechnungskorrektur
-**When** ich in der Auftragserfassung der Rechnungskorrektur die Artikelsuche öffne
-**And** ich in Schnellerfassung der Auftragserfassung der Rechnungskorrektur den Zurück Pfeil drücke
-**Then** wird in der Auftragserfassung der Rechnungskorrektur die Artikelschnellerfassung angezeigt
-**And** wird in der Auftragserfassung der Rechnungskorrektur der Button zum Wechsel in die Artikelsuche angezeigt
-
-
+# Formatierung der Ausgabe
 Halte dich an folgende Formatierung für deine Ausgabe:
-- Trenne Szenarien durch eine Leerzeile
-- Halte dich an die Spezifikationen der Gherkin Sprache.
-- Nutze die englischen Schlüsselwörter (Given, When, Then, And, But), schreibe aber die restliche Antwort auf Deutsch.
-- Gebe die Schlüsselwörter fett-gedruckt wieder.
+- Gebe die Szenarien in Codeblöcken zurück.
+- Nutze die englischen Schlüsselwörter der Gherkin Syntax (Given, When, Then, And, But), schreibe aber die restliche Antwort auf Deutsch.
+
+# Beispielausgabe
+```gherkin
+Scenario: All done
+  Given I am out shopping
+  And I have eggs
+  And I have milk
+  And I have butter
+  When I check my list
+  Then I don't need anything
+```
 """
 
 async def handle_custom_conversation_gherkin(messages : list[dict]):
@@ -301,7 +323,8 @@ async def handle_custom_conversation_gherkin(messages : list[dict]):
         ] + messages,
         temperature=0.0,
     )
-
+    print("COMPLETION")
+    print(completion.choices[-1].message.content)
     return {
         "chatCompletion" : completion,
         "history_metadata" : {},
