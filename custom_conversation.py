@@ -1,5 +1,6 @@
 
-from openai import AsyncAzureOpenAI
+# from openai import AsyncAzureOpenAI
+from langfuse.openai import AsyncAzureOpenAI
 from dotenv import load_dotenv
 import os
 import json
